@@ -86,3 +86,25 @@ export function rgbToHsv(rgb: RgbColor): HsvColor {
 
     return {h, s, v};
 }
+
+/** <h2>Returns a color theme based on the given hue.</h2>
+ * For any given hue, the color's value and saturation are fixed.
+ * <ul>
+ * <li>textColor: S=0.68, V=0.24</li>
+ * <li>majorColor: S=0.77, V=0.75</li>
+ * <li>glassColor: S=0.17, V=1.00</li>
+ * </ul>
+ *
+ * @param hue The hue of the color theme. Must be between 0 and 360.
+ * @returns ColorTheme color theme based on the given hue.
+ * */
+export function getLightColorTheme(hue: number): ColorTheme {
+    if (hue < 0 || hue >= 360) {
+        throw new Error('Hue must be between 0 and 360');
+    }
+    return {
+        textColor: toHexColor(hsvToRgb({h: hue, s: 0.68, v: 0.24})),
+        majorColor: toHexColor(hsvToRgb({h: hue, s: 0.77, v: 0.75})),
+        glassColor: toHexColor(hsvToRgb({h: hue, s: 0.17, v: 1.00}))
+    }
+}
