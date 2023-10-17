@@ -4,11 +4,12 @@ export type RgbColor = {
     b: number;
 }
 
-export type HslColor = {
+export type HsvColor = {
     h: number;
     s: number;
-    l: number;
+    v: number;
 }
+
 
 export type ColorTheme = {
     textColor: string;
@@ -32,34 +33,56 @@ export function toHexColor(rgb: RgbColor): string {
     }).join('');
 }
 
-function hueToRgb(p: number, q: number, t: number): number {
-    if (t < 0) t += 1;
-    if (t > 1) t -= 1;
-    if (t < 1/6) return p + (q - p) * 6 * t;
-    if (t < 1/2) return q;
-    if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
-    return p;
+export function hsvToRgb(hsv: HsvColor): RgbColor {
+    const {h, s, v} = hsv;
+    let r = 0, g = 0, b = 0;
+
+    let i: number = Math.floor(h * 6);
+    let f: number = h * 6 - i;
+    let p: number = v * (1 - s);
+    let q: number = v * (1 - f * s);
+    let t: number = v * (1 - (1 - f) * s);
+
+    switch (i % 6) {
+        case 0: [r, g, b] = [v, t, p]; break;
+        case 1: [r, g, b] = [q, v, p]; break;
+        case 2: [r, g, b] = [p, v, t]; break;
+        case 3: [r, g, b] = [p, q, v]; break;
+        case 4: [r, g, b] = [t, p, v]; break;
+        case 5: [r, g, b] = [v, p, q]; break;
+    }
+
+    // Convert r, g, b to 0-255 range
+    r = Math.round(r * 255);
+    g = Math.round(g * 255);
+    b = Math.round(b * 255);
+
+    return {r, g, b};
 }
 
-export function hslToRgb(hsl: HslColor): RgbColor {
-    let {h, s, l} = hsl;
-    s /= 100;
-    l /= 100;
-    let r: number, g: number, b: number;
-    if (s === 0) {
-        r = g = b = l;  // achromatic
+export function rgbToHsv(rgb: RgbColor): HsvColor {
+    let {r, g, b} = rgb;
+    r /= 255;
+    g /= 255;
+    b /= 255;
+
+    let max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let h, s, v = max;
+    let d = max - min;
+
+    s = max == 0 ? 0 : d / max;
+
+    if (max == min) {
+        h = 0; // achromatic
     } else {
-        const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-        const p = 2 * l - q;
-        r = hueToRgb(p, q, h + 1/3);
-        g = hueToRgb(p, q, h);
-        b = hueToRgb(p, q, h - 1/3);
+        h = 0;
+        switch (max) {
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
     }
 
-    return {
-        r: Math.round(r * 255),
-        g: Math.round(g * 255),
-        b: Math.round(b * 255)
-    }
+    return {h, s, v};
 }
-
