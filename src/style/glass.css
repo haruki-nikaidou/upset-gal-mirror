@@ -18,3 +18,9 @@
 .glass.highest-blur {
     backdrop-filter: blur(30px);
 }
+
+.glass.glass-on-glass {
+    background-color: rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+    border: none;
+}

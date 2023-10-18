@@ -8,16 +8,16 @@ import styles from "./Header.module.css";
 const Header: Component = () => {
     return (
         <>
-            <header class={`${styles.bar} glass high-blur`}>
+            <header class={`${styles.bar} glass`}>
                 <span class={`${styles.headerContainer}`}>
                     <span class={styles.title}>
                 失落の小站 镜像站
             </span>
                 <span class={styles.header}>
-                <span class={`${styles.headerItem} ${styles.selectedItem}`}>
+                <span class={`${styles.headerItem}`}>
                     首页
                 </span>
-                <span class={styles.headerItem}>
+                <span class={`${styles.headerItem} ${styles.selectedItem}`}>
                     PC端
                 </span>
                 <span class={styles.headerItem}>
