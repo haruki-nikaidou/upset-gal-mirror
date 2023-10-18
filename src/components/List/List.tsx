@@ -18,8 +18,8 @@ const List: Component<ListProps> = (props) => {
     let [page, setPage] = createSignal(0);
     return (
         <>
-            <div class={`glass high-blur`}>
-                <div class={`${styles.list} higher-blur`}>
+            <div class={`glass higher-blur`}>
+                <div class={`${styles.list}`}>
                     {items.map((item) => (
                         <ListItem title={item.title} size={item.size} resourceType={item.resourceType}/>
                     ))}

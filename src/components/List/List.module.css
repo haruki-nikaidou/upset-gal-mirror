@@ -20,7 +20,7 @@
 }
 
 .control {
-    margin-top: 0.5em;
+    margin-top: .75em;
     width: 100%;
     display: flex;
     justify-content: space-between;
