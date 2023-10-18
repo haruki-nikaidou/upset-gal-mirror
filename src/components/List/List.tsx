@@ -6,6 +6,11 @@ import styles from "./List.module.css";
 export interface ListProps {
     items: ListItemProps[];
     itemPerPage?: number;
+    onInit?: (list: ListApi) => any;
+}
+
+export interface ListApi {
+    pageTo: (page: number) => void;
 }
 
 const List: Component<ListProps> = (props) => {
@@ -95,6 +100,14 @@ const List: Component<ListProps> = (props) => {
             setInputValue(page() + 1);
         }
     };
+
+    // api
+    const api: ListApi = {
+        pageTo: (page: number) => {
+            setPage(page);
+        }
+    };
+    props.onInit?.(api);
 
     return (
         <>
