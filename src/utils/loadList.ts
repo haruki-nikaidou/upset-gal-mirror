@@ -1,5 +1,4 @@
 import {GameItem} from "./search.ts";
-import win from "../data/win";
 
 export type gameInfo = {
     "@type": string,
@@ -20,16 +19,16 @@ export declare const targets: [
 ]
 
 export async function fetchList(target: typeof targets[number]): Promise<GameItem[]> {
-    //const url = `https://shinnku.com/api/download/mkw12345/${target}`;
-    //const resp = await fetch(url);
+    const url = `https://shinnku.com/api/download/mkw12345/${target}`;
+    const resp = await fetch(url);
 
-    //const resJson: gameInfo[] = await resp.json();
-    const resJson: gameInfo[] = target === 'win' ? win: [];
+    const resJson: gameInfo[] = await resp.json();
+
     return resJson!.map((item) => {
         return {
             title: item.name,
             size: item.size,
-            resourceType: item["@type"],
+            resourceType: item["@type"] as "folder" | "file",
         }
     });
 }

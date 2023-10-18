@@ -1,5 +1,4 @@
 import type {Component} from 'solid-js';
-//import createSignal from 'solid-js';
 import styles from './Pc.module.css';
 import "../../style/glass.css";
 import List, {ListApi} from "../../components/List/List.tsx";
