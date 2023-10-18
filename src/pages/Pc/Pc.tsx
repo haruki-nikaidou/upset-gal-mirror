@@ -12,7 +12,7 @@ const Pc: Component = () => {
             <Logo/>
             <div class={`glass ${styles.pcContainer}`}>
                 <Search/>
-                <List items={
+                <List  itemPerPage={2} items={
                     [
                         {
                             title: "title",

@@ -20,7 +20,19 @@ const List: Component<ListProps> = (props) => {
     for (let i = 0; i < items.length; i += itemPerPage) {
         pages.push(items.slice(i, i + itemPerPage));
     }
+
+    // create page signal
     let [page, setPage] = createSignal(0);
+    const previousPage = () => {
+        if (page() > 0) {
+            setPage(page() - 1);
+        }
+    };
+    const nextPage = () => {
+        if (page() < pages.length - 1) {
+            setPage(page() + 1);
+        }
+    }
 
     // display buttons to switch pages
     // for any page, display buttons that can switch to +-2 pages and that can switch to the first and last page
@@ -83,15 +95,13 @@ const List: Component<ListProps> = (props) => {
                 <div class={`${styles.control}`}>
                     <div class={`${styles.buttonGroup}`}>
                         <button
-                            onClick={() => {
-                                setPage(page() - 1);
-                            }}
+                            disabled={page() === 0}
+                            onClick={previousPage}
                         > {"<"} </button>
                         {buttons}
                         <button
-                            onClick={() => {
-                                setPage(page() + 1);
-                            }}
+                            disabled={page() === pages.length - 1}
+                            onClick={nextPage}
                         > {">"} </button>
                     </div>
                     <div class={`${styles.goto}`}>

@@ -25,7 +25,7 @@ const Tools: Component = () => {
     ];
 
 
-    const [list, setList] = createSignal(item1);
+    const [list, setList] = createSignal(item1 , { equals: false });
 
     const onSwitch = (index: number) => {
         setSelectedTab(index);
