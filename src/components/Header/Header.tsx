@@ -1,7 +1,7 @@
 import type {Component} from 'solid-js';
 import '../../style/glass.css';
 import styles from "./Header.module.css";
-import {createSignal, onCleanup, onMount} from "solid-js";
+import {createSignal, Match, onCleanup, onMount, Switch} from "solid-js";
 import {useNavigate} from "@solidjs/router";
 
 const path = [
@@ -131,7 +131,16 @@ const Header: Component = () => {
         });
     });
 
-    return (rect().width )> 450 ? <PcHeader/> : <MobileHeader/>
+    return (
+        <Switch>
+            <Match when={rect().width> 500}>
+                <PcHeader/>
+            </Match>
+            <Match when={rect().width<= 500}>
+                <MobileHeader/>
+            </Match>
+        </Switch>
+    )
 }
 
 export default Header;
