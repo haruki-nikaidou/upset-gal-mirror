@@ -29,6 +29,7 @@
 }
 
 .search > input {
+    font-size: 1em;
     box-sizing: border-box;
     outline: none;
     flex: 3;
