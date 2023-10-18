@@ -1,5 +1,5 @@
 import ListItem, {ListItemProps} from "./ListItem.tsx";
-import {Component, createSignal, JSX} from "solid-js";
+import {Component, createSignal, For, JSX, splitProps} from "solid-js";
 import "../../style/glass.css"
 import styles from "./List.module.css";
 
@@ -9,20 +9,20 @@ export interface ListProps {
 }
 
 const List: Component<ListProps> = (props) => {
-    const {items} = props;
-    let {itemPerPage} = props;
-    if (itemPerPage === undefined) {
-        itemPerPage = 10;   // default value
-    }
-
     // split items into pages
-    let pages: ListItemProps[][] = [];
-    for (let i = 0; i < items.length; i += itemPerPage) {
-        pages.push(items.slice(i, i + itemPerPage));
-    }
-    if (items.length == 0) {
-        pages.push([]);
-    }
+    const pages: () => ListItemProps[][] = () =>  {
+        const [local] = splitProps(props, ["items", "itemPerPage"]);
+        const items = local.items;
+        const itemPerPage = local.itemPerPage ? local.itemPerPage : 10;
+        let pages: ListItemProps[][] = [];
+        for (let i = 0; i < items.length; i += itemPerPage) {
+            pages.push(items.slice(i, i + itemPerPage));
+        }
+        if (items.length == 0) {
+            pages.push([]);
+        }
+        return pages;
+    } ;
 
     // create page signal
     let [page, setPage] = createSignal(0);
@@ -40,44 +40,45 @@ const List: Component<ListProps> = (props) => {
     // display buttons to switch pages
     // for any page, display buttons that can switch to +-2 pages and that can switch to the first and last page
     let buttonIndexes: number[] = [];
-    if (pages.length <= 5) {
-        for (let i = 0; i < pages.length; i++) {
+    if (pages().length <= 5) {
+        for (let i = 0; i < pages().length; i++) {
             buttonIndexes.push(i);
         }
     } else if (page() <= 3) {
         buttonIndexes = [0, 1, 2, 3, 4];
-        if (pages.length > 5) {
-            buttonIndexes.push(pages.length - 1);
+        if (pages().length > 5) {
+            buttonIndexes.push(pages().length - 1);
         }
-    } else if (page() >= pages.length - 4) {
+    } else if (page() >= pages().length - 4) {
         buttonIndexes = [0];
-        if (pages.length > 5) {
-            buttonIndexes.push(pages.length - 5, pages.length - 4, pages.length - 3, pages.length - 2, pages.length - 1);
+        if (pages().length > 5) {
+            buttonIndexes.push(pages().length - 5, pages().length - 4, pages().length - 3, pages().length - 2, pages().length - 1);
         } else {
-            for (let i = 0; i < pages.length; i++) {
+            for (let i = 0; i < pages().length; i++) {
                 buttonIndexes.push(i);
             }
         }
     } else {
         buttonIndexes = [0, page() - 2, page() - 1, page(), page() + 1, page() + 2];
-        if (pages.length > 5) {
-            buttonIndexes.push(pages.length - 1);
+        if (pages().length > 5) {
+            buttonIndexes.push(pages().length - 1);
         }
     }
 
     // render buttons
-    let buttons: JSX.Element[] = [];
-    for (let i = 0; i < buttonIndexes.length; i++) {
-        buttons.push(
-            <button
-                class={`${styles.button} ${buttonIndexes[i] === page() ? styles.selected : ""}`}
-                onClick={() => {
-                    setPage(buttonIndexes[i]);
-                }}>
-                {buttonIndexes[i] + 1}
-            </button>
-        )
-    }
+    let buttons: JSX.Element = (
+        <For each={buttonIndexes}>
+            {(index) => (
+                <button
+                    class={`${styles.button} ${index === page() ? styles.selected : ""}`}
+                    onClick={() => {
+                        setPage(index);
+                    }}>
+                    {index + 1}
+                </button>
+            )}
+        </For>
+    );
 
     // go to pages
     const [inputValue, setInputValue] = createSignal(1);
@@ -87,13 +88,11 @@ const List: Component<ListProps> = (props) => {
         <>
             <div class={`glass higher-blur glass-on-glass`}>
                 <div class={`${styles.list}`}>
-                    {
-                        pages[page()].map((item) => {
-                            return (
-                                <ListItem title={item.title} size={item.size} resourceType={item.resourceType}/>
-                            )
-                        })
-                    }
+                    <For each={pages()[page()]}>
+                        {(item) => (
+                            <ListItem title={item.title} size={item.size} resourceType={item.resourceType}/>
+                        )}
+                    </For>
                 </div>
                 <div class={`${styles.control}`}>
                     <div class={`${styles.buttonGroup}`}>
@@ -103,14 +102,14 @@ const List: Component<ListProps> = (props) => {
                         > {"<"} </button>
                         {buttons}
                         <button
-                            disabled={page() === pages.length - 1}
+                            disabled={page() === pages().length - 1}
                             onClick={nextPage}
                         > {">"} </button>
                     </div>
                     <div class={`${styles.goto}`}>
                         <button
                             onClick={() => {
-                                if (inputValue() > 0 && inputValue() <= pages.length) {
+                                if (inputValue() > 0 && inputValue() <= pages().length) {
                                     setPage(inputValue() - 1);
                                 } else {
                                     setInputValue(page() + 1);
