@@ -7,7 +7,7 @@ import styles from "./Header.module.css";
 
 const Header: Component = () => {
     return (
-        <header class={`${styles.bar} glass highest-blur`}>
+        <header class={`${styles.bar} glass high-blur`}>
             <span class={styles.title}>
                 失落の小站 镜像站
             </span>

@@ -29,7 +29,11 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-image: linear-gradient(to right, #ffcdb9, #ffb9b9, #FFC0CB);
+  background-image: url("assets/background.jpg"),linear-gradient(to right, #ffcdb9, #ffb9b9, #FFC0CB);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
 }
 
 h1 {
