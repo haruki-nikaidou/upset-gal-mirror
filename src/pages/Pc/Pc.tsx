@@ -5,7 +5,7 @@ import "../../style/glass.css";
 import List from "../../components/List/List.tsx";
 import Search from "../../components/Search/Search.tsx";
 import Logo from "../../components/Logo/Logo.tsx";
-import {createEffect, createSignal} from "solid-js";
+import {createEffect, createSignal, Show} from "solid-js";
 import {fetchList} from "../../utils/loadList.ts";
 import {GameItem} from "../../utils/search.ts";
 
@@ -18,13 +18,14 @@ const Pc: Component = () => {
         setGameList(windowsGame.concat(rpgGame));
         setReady(true);
     });
-    let list = (<List itemPerPage={10} items={gameList()}/>);
     return (
         <>
             <Logo/>
             <div class={`glass ${styles.pcContainer}`}>
                 <Search/>
-                {ready() ? list : <div>loading...</div>}
+                <Show when={ready()}>
+                    <List itemPerPage={7} items={gameList()}/>
+                </Show>
             </div>
         </>
     )

@@ -22,7 +22,7 @@ const List: Component<ListProps> = (props) => {
             pages.push([]);
         }
         return pages;
-    } ;
+    };
 
     // create page signal
     let [page, setPage] = createSignal(0);
@@ -32,42 +32,45 @@ const List: Component<ListProps> = (props) => {
         }
     };
     const nextPage = () => {
-        if (page() < pages.length - 1) {
+        if (page() < pages().length - 1) {
             setPage(page() + 1);
         }
     }
 
     // display buttons to switch pages
     // for any page, display buttons that can switch to +-2 pages and that can switch to the first and last page
-    let buttonIndexes: number[] = [];
-    if (pages().length <= 5) {
-        for (let i = 0; i < pages().length; i++) {
-            buttonIndexes.push(i);
-        }
-    } else if (page() <= 3) {
-        buttonIndexes = [0, 1, 2, 3, 4];
-        if (pages().length > 5) {
-            buttonIndexes.push(pages().length - 1);
-        }
-    } else if (page() >= pages().length - 4) {
-        buttonIndexes = [0];
-        if (pages().length > 5) {
-            buttonIndexes.push(pages().length - 5, pages().length - 4, pages().length - 3, pages().length - 2, pages().length - 1);
-        } else {
+    const buttonIndexes: () => number[] = () => {
+        let buttonIndexes: number[] = [];
+        if (pages().length <= 5) {
             for (let i = 0; i < pages().length; i++) {
                 buttonIndexes.push(i);
             }
+        } else if (page() <= 3) {
+            buttonIndexes = [0, 1, 2, 3, 4];
+            if (pages().length > 5) {
+                buttonIndexes.push(pages().length - 1);
+            }
+        } else if (page() >= pages().length - 4) {
+            buttonIndexes = [0];
+            if (pages().length > 5) {
+                buttonIndexes.push(pages().length - 5, pages().length - 4, pages().length - 3, pages().length - 2, pages().length - 1);
+            } else {
+                for (let i = 0; i < pages().length; i++) {
+                    buttonIndexes.push(i);
+                }
+            }
+        } else {
+            buttonIndexes = [0, page() - 2, page() - 1, page(), page() + 1, page() + 2];
+            if (pages().length > 5) {
+                buttonIndexes.push(pages().length - 1);
+            }
         }
-    } else {
-        buttonIndexes = [0, page() - 2, page() - 1, page(), page() + 1, page() + 2];
-        if (pages().length > 5) {
-            buttonIndexes.push(pages().length - 1);
-        }
+        return buttonIndexes;
     }
 
     // render buttons
     let buttons: JSX.Element = (
-        <For each={buttonIndexes}>
+        <For each={buttonIndexes()}>
             {(index) => (
                 <button
                     class={`${styles.button} ${index === page() ? styles.selected : ""}`}
@@ -83,6 +86,15 @@ const List: Component<ListProps> = (props) => {
     // go to pages
     const [inputValue, setInputValue] = createSignal(1);
 
+    // handle input
+    const handleInput = (i: string) => {
+        if (parseInt(i)) {
+            setInputValue(parseInt(i));
+        } else if (i === "") {
+        } else {
+            setInputValue(page() + 1);
+        }
+    };
 
     return (
         <>
@@ -118,10 +130,9 @@ const List: Component<ListProps> = (props) => {
                         >跳</button>
                         <span>到第</span>
                         <input
-                            type="number"
                             value={inputValue()}
                             onInput={(e) => {
-                                setInputValue(parseInt((e.target as HTMLInputElement).value) ? parseInt((e.target as HTMLInputElement).value) : page() + 1);
+                                handleInput((e.target as HTMLInputElement).value);
                             }}
                         />
                         <span>页</span>
