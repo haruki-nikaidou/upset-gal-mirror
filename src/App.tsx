@@ -2,12 +2,14 @@ import { createSignal } from 'solid-js'
 import solidLogo from './assets/solid.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import Header from "./components/Header/Header.tsx";
 
 function App() {
   const [count, setCount] = createSignal(0)
 
   return (
     <>
+       <Header />
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} class="logo" alt="Vite logo" />
