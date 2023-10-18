@@ -31,10 +31,8 @@ const Tools: Component = () => {
         setSelectedTab(index);
         if (selectedTab() === 0) {
             setList(item1);
-            console.log("item1");
         } else {
             setList(item2);
-            console.log("item2");
         }
     }
     return (
