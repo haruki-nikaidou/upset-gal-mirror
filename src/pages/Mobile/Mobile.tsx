@@ -25,15 +25,15 @@ const Mobile: Component = () => {
     ];
 
 
-    const [listElement, setListElement] = createSignal(item1);
+    const [list, setList] = createSignal(item1);
 
     const onSwitch = (index: number) => {
         setSelectedTab(index);
         if (selectedTab() === 0) {
-            setListElement(item1);
+            setList(item1);
             console.log("item1");
         } else {
-            setListElement(item2);
+            setList(item2);
             console.log("item2");
         }
     }
@@ -60,7 +60,7 @@ const Mobile: Component = () => {
                              onSwitch={onSwitch}
                 />
                 <Search/>
-                <List items={listElement()}/>
+                <List items={list()}/>
             </div>
         </>
     )
