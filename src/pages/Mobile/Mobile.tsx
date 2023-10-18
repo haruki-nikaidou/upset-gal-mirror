@@ -43,22 +43,22 @@ const Mobile: Component = () => {
                             resourceType: "resourceType2"
                         },
                         {
-                            title: "title2",
+                            title: "title3",
                             size: "size2",
                             resourceType: "resourceType2"
                         },
                         {
-                            title: "title2",
+                            title: "title4",
                             size: "size2",
                             resourceType: "resourceType2"
                         },
                         {
-                            title: "title2",
+                            title: "title5",
                             size: "size2",
                             resourceType: "resourceType2"
                         },
                         {
-                            title: "title2",
+                            title: "title6",
                             size: "size2",
                             resourceType: "resourceType2"
                         },
