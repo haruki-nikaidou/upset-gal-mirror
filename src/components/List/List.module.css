@@ -28,6 +28,10 @@
 }
 
 .buttonGroup {
+    display: flex;
+    flex-wrap: nowrap;
+    min-width: 5em;
+    overflow: auto;
     border-radius: .5em;
     border: rgba(52, 52, 52, 0.25) 1pt solid;
 }
