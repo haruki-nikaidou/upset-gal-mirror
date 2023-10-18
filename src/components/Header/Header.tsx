@@ -17,10 +17,10 @@ const Header: Component = () => {
                 <span class={`${styles.headerItem}`}>
                     首页
                 </span>
-                <span class={`${styles.headerItem} ${styles.selectedItem}`}>
+                <span class={`${styles.headerItem}`}>
                     PC端
                 </span>
-                <span class={styles.headerItem}>
+                <span class={`${styles.headerItem} ${styles.selectedItem}`}>
                     移动端
                 </span>
                 <span class={`${styles.headerItem}`}>

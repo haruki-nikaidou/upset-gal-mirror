@@ -1,7 +1,7 @@
 import './App.css'
 import Header from "./components/Header/Header.tsx";
 // import Home from "./pages/Home/Home.tsx";
-import Pc from "./pages/Pc/Pc.tsx";
+import Mobile from "./pages/Mobile/Mobile.tsx";
 
 function App() {
 
@@ -9,7 +9,7 @@ function App() {
   return (
     <>
        <Header />
-        <Pc />
+        <Mobile />
     </>
   )
 }
