@@ -18,12 +18,12 @@ declare const targets: [
     "tools"
 ]
 
-export async function fetchList(target: typeof targets): Promise<GameItem[]> {
-    const url = `https://shinnku.com/api/download/legacy/${target}`;
+export async function fetchList(target: string): Promise<GameItem[]> {
+    const url = `https://shinnku.com/api/download/mkw12345/${target}`;
     const resp = await fetch(url);
 
     const resJson: gameInfo[] = await resp.json();
-    return resJson.map((item) => {
+    return resJson!.map((item) => {
         return {
             title: item.name,
             size: item.size,

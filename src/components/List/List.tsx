@@ -20,6 +20,9 @@ const List: Component<ListProps> = (props) => {
     for (let i = 0; i < items.length; i += itemPerPage) {
         pages.push(items.slice(i, i + itemPerPage));
     }
+    if (items.length == 0) {
+        pages.push([]);
+    }
 
     // create page signal
     let [page, setPage] = createSignal(0);
