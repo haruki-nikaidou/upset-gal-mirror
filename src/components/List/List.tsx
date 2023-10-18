@@ -11,6 +11,7 @@ export interface ListProps {
 
 export interface ListApi {
     pageTo: (page: number) => void;
+    getPage: () => number;
 }
 
 const List: Component<ListProps> = (props) => {
@@ -105,6 +106,9 @@ const List: Component<ListProps> = (props) => {
     const api: ListApi = {
         pageTo: (page: number) => {
             setPage(page);
+        },
+        getPage: () => {
+            return page();
         }
     };
     props.onInit?.(api);
@@ -115,7 +119,7 @@ const List: Component<ListProps> = (props) => {
                 <div class={`${styles.list}`}>
                     <For each={pages()[page()]}>
                         {(item) => (
-                            <ListItem title={item.title} size={item.size} resourceType={item.resourceType}/>
+                            <ListItem title={item.title} size={item.size} resourceType={item.resourceType} onClick={item.onClick} onContextMenu={item.onContextMenu}/>
                         )}
                     </For>
                 </div>

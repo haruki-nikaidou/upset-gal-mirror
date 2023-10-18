@@ -1,9 +1,14 @@
 import Fuse from "fuse.js";
 
+declare const resourceTypes: [
+    "folder",
+    "file",
+]
+
 export type GameItem = {
     title: string;
     size: string;
-    resourceType: string;
+    resourceType: typeof resourceTypes[number];
 }
 
 export function search (name: string, data: GameItem[]): GameItem[] {

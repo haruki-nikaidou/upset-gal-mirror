@@ -8,7 +8,7 @@ export type gameInfo = {
     size: string
 }
 
-declare const targets: [
+export declare const targets: [
     "win",
     "rpg",
     "krkr",
@@ -19,7 +19,7 @@ declare const targets: [
     "tools"
 ]
 
-export async function fetchList(target: string): Promise<GameItem[]> {
+export async function fetchList(target: typeof targets[number]): Promise<GameItem[]> {
     //const url = `https://shinnku.com/api/download/mkw12345/${target}`;
     //const resp = await fetch(url);
 
