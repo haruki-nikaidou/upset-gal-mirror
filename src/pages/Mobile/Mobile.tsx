@@ -63,7 +63,9 @@ const Mobile: Component = () => {
                             resourceType: "resourceType2"
                         },
                     ]
-                }/>
+                }
+                    itemPerPage={3}
+                />
             </div>
         </>
     )
