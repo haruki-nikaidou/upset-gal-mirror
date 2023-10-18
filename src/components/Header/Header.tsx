@@ -2,7 +2,7 @@ import type {Component} from 'solid-js';
 import '../../style/glass.css';
 import styles from "./Header.module.css";
 import {createSignal} from "solid-js";
-import {useNavigate} from "@solidjs/router";
+import {useLocation, useNavigate} from "@solidjs/router";
 
 const path= [
     "/",
@@ -14,8 +14,9 @@ const path= [
 // when width < 620px, use menu
 
 const Header: Component = () => {
-    const [currentPath, setCurrentPath] = createSignal<string>(path[0]);
     const navigate = useNavigate();
+    const location = useLocation();
+    const [currentPath, setCurrentPath] = createSignal<string>(location.pathname);
     return (
         <>
             <header class={`${styles.bar} glass`}>
@@ -51,6 +52,7 @@ const Header: Component = () => {
                 <span class={`${styles.headerItem} ${currentPath() === path[3] ? styles.selectedItem : ''}`}
                     onclick={() => {
                         setCurrentPath(path[3]);
+                        navigate(path[3]);
                     }}
                 >
                     工具

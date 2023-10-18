@@ -1,13 +1,13 @@
 import type {Component} from 'solid-js';
 import {createSignal} from 'solid-js';
-import styles from './Mobile.module.css';
+import styles from './Tools.module.css';
 import "../../style/glass.css";
 import List from "../../components/List/List.tsx";
 import Search from "../../components/Search/Search.tsx";
 import Logo from "../../components/Logo/Logo.tsx";
 import ButtonRatio from "../../components/ButtonRatio/ButtonRatio.tsx";
 
-const Mobile: Component = () => {
+const Tools: Component = () => {
     const [selectedTab, setSelectedTab] = createSignal(0);
     const item1 = [
         {
@@ -40,20 +40,14 @@ const Mobile: Component = () => {
     return (
         <>
             <Logo/>
-            <div class={`glass ${styles.mobileContainer}`}>
+            <div class={`glass ${styles.toolsContainer}`}>
                 <ButtonRatio selected={0} items={
                     [
                         {
-                            title: "Kirikiri 2",
+                            title: "模拟器",
                         },
                         {
-                            title: "APK",
-                        },
-                        {
-                            title: "ons",
-                        },
-                        {
-                            title: "Artroid",
+                            title: "常用其他工具",
                         }
                     ]
                 }
@@ -66,4 +60,4 @@ const Mobile: Component = () => {
     )
 }
 
-export default Mobile;
+export default Tools;

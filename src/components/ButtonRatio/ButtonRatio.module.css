@@ -7,6 +7,7 @@
     background: none;
     font-size: 1em;
     transition: background-color .2s ease-in-out;
+    line-height: 1;
 }
 
 .buttonDefault + .buttonDefault {
