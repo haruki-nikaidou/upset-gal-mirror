@@ -1,11 +1,36 @@
-.selected {
-
+.buttonDefault {
+    border-radius: 1em;
+    flex: 1;
+    outline: none;
+    padding: .5em;
+    border: none;
+    background: none;
+    font-size: 1em;
+    transition: background-color .2s ease-in-out;
 }
 
-.buttonDefault {
+.buttonDefault + .buttonDefault {
+    margin-left: .25em;
+}
 
+.buttonDefault:hover {
+    background-color: rgba(232, 232, 232, 0.75);
 }
 
 .buttonContainer {
+    outline: none;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 1em;
+    background-color: rgba(232, 232, 232, 0.5);
+}
 
+.selected {
+    outline: none;
+    background-color: rgb(42, 42, 42);
+    color: white;
+}
+
+.selected:hover {
+    background-color: rgb(42, 42, 42);
 }
