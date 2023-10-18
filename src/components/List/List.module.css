@@ -1,0 +1,105 @@
+.list {
+    box-sizing: border-box;
+    overflow: auto;
+    border: 1pt rgba(61, 61, 61, 0.18) solid;
+    border-radius: .5em;
+}
+
+.list > div + div {
+    border-top: 1pt solid rgba(61, 61, 61, 0.18);
+}
+
+.list > :first-child {
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+}
+
+.list > :last-child {
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+}
+
+.control {
+    margin-top: 0.5em;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttonGroup {
+    border-radius: .5em;
+    border: rgba(52, 52, 52, 0.25) 1pt solid;
+}
+
+.buttonGroup > button {
+    font-size: .8rem;
+    background: none;
+    border: none;
+    outline: none;
+    padding: .75em 1em;
+    transition: background-color 0.5s;
+}
+
+.buttonGroup > button:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.buttonGroup > :first-child {
+    border-top-left-radius: .5em;
+    border-bottom-left-radius: .5em;
+}
+
+.buttonGroup > button + button {
+    border-left: rgba(52, 52, 52, 0.25) 1pt solid;
+}
+
+.buttonGroup > :last-child {
+    border-top-right-radius: .5em;
+    border-bottom-right-radius: .5em;
+}
+
+.goto {
+    height: 2.3em;
+    display: flex;
+    align-items: center;
+    border-radius: .5em;
+    border: rgba(52, 52, 52, 0.25) 1pt solid;
+    box-sizing: border-box;
+    padding-right: .75em;
+}
+
+.goto > * {
+    font-size: .8rem;
+}
+
+.goto > button {
+    height: 100%;
+    border-top-left-radius: .5em;
+    border-bottom-left-radius: .5em;
+    border: none;
+    padding: .5em;
+    border-right: rgba(52, 52, 52, 0.25) 1pt solid;
+    background: none;
+    outline: none;
+    margin-right: .5em;
+    transition: background-color 0.5s;
+}
+
+.goto > button:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.goto > input {
+    border: none;
+    background: none;
+    outline: none;
+    box-sizing: border-box;
+    padding: .25em;
+    height: 100%;
+    width: 3em;
+    border-left: rgba(52, 52, 52, 0.25) 1pt solid;
+    border-right: rgba(52, 52, 52, 0.25) 1pt solid;
+    margin: 0 .5em;
+    background: rgba(255, 255, 255, 0.33);
+}

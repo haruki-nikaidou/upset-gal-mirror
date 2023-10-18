@@ -11,6 +11,10 @@
     backdrop-filter: blur(10px);
 }
 
+.glass.higher-blur {
+    backdrop-filter: blur(20px);
+}
+
 .glass.highest-blur {
     backdrop-filter: blur(30px);
 }

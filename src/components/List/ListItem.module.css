@@ -1,0 +1,22 @@
+.listItem {
+    width: 100%;
+    text-align: left;
+    line-height: 1.5;
+    padding: 0.5em 1.5em;
+    box-sizing: border-box;
+    transition: background-color 0.5s;
+}
+
+.listItem:hover {
+    background-color: rgba(255, 255, 255, 0.31);
+}
+
+.title {
+    font-size: 1.1em;
+    color: #1e1e1e;
+}
+
+.info {
+    font-size: 0.9em;
+    color: #343434;
+}

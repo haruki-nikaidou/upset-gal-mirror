@@ -7,11 +7,13 @@ import styles from "./Header.module.css";
 
 const Header: Component = () => {
     return (
-        <header class={`${styles.bar} glass high-blur`}>
-            <span class={styles.title}>
+        <>
+            <header class={`${styles.bar} glass high-blur`}>
+                <span class={`${styles.headerContainer}`}>
+                    <span class={styles.title}>
                 失落の小站 镜像站
             </span>
-            <span class={styles.header}>
+                <span class={styles.header}>
                 <span class={`${styles.headerItem} ${styles.selectedItem}`}>
                     首页
                 </span>
@@ -24,11 +26,11 @@ const Header: Component = () => {
                 <span class={`${styles.headerItem}`}>
                     工具
                 </span>
-                <span class={styles.headerItem}>
-                    设置
-                </span>
             </span>
-        </header>
+                </span>
+            </header>
+            <div style={{height: "5.5rem"}}></div>
+        </>
     )
 }
 
