@@ -1,16 +1,14 @@
 import type {Component} from 'solid-js';
-import upsetGalLogo from '../../assets/upsetgal-logo.webp';
 import "../../style/glass.css";
 import Typography from "../../components/Typography/Typography.tsx";
 import styles from "./Home.module.css";
+import Logo from "../../components/Logo/Logo.tsx";
 
 const Home: Component = () => {
     return (
         <>
             <div class={`glass higher-blur ${styles.content}`}>
-                <div>
-                    <img src={upsetGalLogo} alt="upset gal logo" class={`${styles.logo}`}/>
-                </div>
+                <Logo />
                 <Typography variant="h3">
                     简介
                 </Typography>

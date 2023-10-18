@@ -4,10 +4,12 @@ import styles from './Pc.module.css';
 import "../../style/glass.css";
 import List from "../../components/List/List.tsx";
 import Search from "../../components/Search/Search.tsx";
+import Logo from "../../components/Logo/Logo.tsx";
 
 const Pc: Component = () => {
     return (
         <>
+            <Logo/>
             <div class={`glass ${styles.pcContainer}`}>
                 <Search/>
                 <List items={
