@@ -60,7 +60,6 @@ const Mobile: Component = () => {
     }
 
     createEffect(async () => {
-        console.log("do effect")
         const listAccessor = () => listClone;
         const gameItemLists = [
             await fetchList('krkr'),
