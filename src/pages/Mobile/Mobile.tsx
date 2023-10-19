@@ -1,4 +1,4 @@
-import type {Component} from 'solid-js';
+import type {Accessor, Component, Setter} from 'solid-js';
 import {createEffect, createSignal, Show} from 'solid-js';
 import styles from './Mobile.module.css';
 import "../../style/glass.css";
@@ -20,11 +20,22 @@ const Mobile: Component = () => {
         'artroid'
     ];
 
-
-    let [gameList, setGameList] = createSignal<ListItemProps[]>([]);
+    const gameLists: ([Accessor<ListItemProps[]>,Setter<ListItemProps[]>] | null)[] = [
+        null,
+        null,
+        null,
+        null
+    ]
+    const displayLists = [
+        createSignal<ListItemProps[]>([]),
+        createSignal<ListItemProps[]>([]),
+        createSignal<ListItemProps[]>([]),
+        createSignal<ListItemProps[]>([])
+    ];
+    let listPages=[0,0,0,0]
     let [ready, setReady] = createSignal(false);
-    let [displayList, setDisplayList] = createSignal<ListItemProps[]>([]);
-    let [_, setPlatform] = createSignal(0);
+    let [platform, setPlatform] = createSignal(0);
+    let filePaths: (FilePath | null)[] = [null, null, null, null];
 
     let listClone: ListApi;
     const listOnInit = (list: ListApi) => {
@@ -32,35 +43,39 @@ const Mobile: Component = () => {
     }
 
     const handleSearch = (keyword: string) => {
+        const displaySetter = displayLists[platform()][1];
+        const gameAccessor = gameLists[platform()]![0];
         if (keyword === "") {
-            setDisplayList(gameList());
+            displaySetter(gameAccessor());
             return;
         }
-        setDisplayList(search(keyword, gameList() as GameItem[]));
+        displaySetter(search(keyword, gameAccessor() as GameItem[]));
         listClone.pageTo(0);
     }
 
-    const onSwitch = async (index: number) => {
+    const onSwitch = (index: number) => {
+        listPages[platform()] = listClone!.getPage();
         setPlatform(index);
-        setReady(false);
-        const resource = await fetchList(platformList[index]);
-        const filePath = new FilePath(platformList[index]);
-        setGameList(
-            getItemProps(resource, filePath, listClone, displayList)
-        );
-        setDisplayList(gameList());
-        setReady(true);
+        listClone!.pageTo(listPages[index]);
     }
 
-
-
     createEffect(async () => {
-        const filePath = new FilePath('krkr');
-        const krkrGame = await fetchList('krkr');
-        setGameList(
-            getItemProps(krkrGame, filePath, listClone, displayList)
-        );
-        setDisplayList(gameList());
+        console.log("do effect")
+        const listAccessor = () => listClone;
+        const gameItemLists = [
+            await fetchList('krkr'),
+            await fetchList('apk'),
+            await fetchList('ons'),
+            await fetchList('artroid')
+        ]
+        for (let i = 0; i < 4; i++) {
+            filePaths[i] = new FilePath(platformList[i], gameItemLists[i]);
+            gameLists[i] = createSignal(
+                getItemProps(gameItemLists[i], filePaths[i]!, listAccessor, displayLists[i][1])
+            );
+            const displaySetter = displayLists[i][1];
+            displaySetter(gameLists[i]![0]());
+        }
         setReady(true);
     });
 
@@ -88,7 +103,7 @@ const Mobile: Component = () => {
                 />
                 <Search onSearch={handleSearch}/>
                 <Show when={ready()}>
-                    <List itemPerPage={7} items={displayList()} onInit={listOnInit}/>
+                    <List itemPerPage={7} items={displayLists[platform()][0]()} onInit={listOnInit}/>
                 </Show>
             </div>
         </>
