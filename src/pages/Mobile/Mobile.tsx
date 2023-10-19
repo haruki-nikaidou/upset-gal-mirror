@@ -61,12 +61,12 @@ const Mobile: Component = () => {
 
     createEffect(async () => {
         const listAccessor = () => listClone;
-        const gameItemLists = [
-            await fetchList('krkr'),
-            await fetchList('apk'),
-            await fetchList('ons'),
-            await fetchList('artroid')
-        ]
+        const gameItemLists = await Promise.all([
+            fetchList('krkr'),
+            fetchList('apk'),
+            fetchList('ons'),
+            fetchList('artroid')
+        ]);
         for (let i = 0; i < 4; i++) {
             filePaths[i] = new FilePath(platformList[i], gameItemLists[i]);
             gameLists[i] = createSignal(
