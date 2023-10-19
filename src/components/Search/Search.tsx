@@ -13,6 +13,11 @@ const Search: Component<SearchProps> = (props: SearchProps) => {
             <input type="text" value={input()}
                    placeholder="输入关键词搜索"
                    onInput={(e) => setInput(e.currentTarget.value)}
+                   onKeyUp={(e) => {
+                          if (e.key === "Enter") {
+                            props.onSearch?.(input());
+                          }
+                   }}
             />
             <button
                 onClick={() => {
