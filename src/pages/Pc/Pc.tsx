@@ -33,16 +33,24 @@ const Pc: Component = () => {
     }
 
     createEffect(async () => {
-        const filePath = new FilePath('win');
+        const listAccessor = () => listClone;
+
         let windowsGame = await fetchList('win');
         let rpgGame = await fetchList('rpg');
         const fetchedGameList = windowsGame.concat(rpgGame);
+        const filePath = new FilePath('win', fetchedGameList);
+        const itemProps = getItemProps(fetchedGameList, filePath, listAccessor, setDisplayList)
         setGameList(
-            getItemProps(fetchedGameList, filePath, listClone, displayList)
+            itemProps
         );
         setDisplayList(gameList());
         setReady(true);
     });
+
+    createEffect(() => {
+        gameList()
+        setDisplayList(gameList());
+    })
     return (
         <>
             <Logo/>

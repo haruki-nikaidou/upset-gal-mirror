@@ -6,13 +6,13 @@ import {ListApi} from "../components/List/List.tsx";
 import {Setter} from "solid-js";
 
 export default function getItemProps(
-    games: GameItem[], fileBrowse: FilePath, listApi: ListApi,
+    games: GameItem[], fileBrowse: FilePath, listApiAccessor: () => ListApi,
     listSetter: Setter<ListItemProps[]>): ListItemProps[]
 {
     const popFunction = () => {
-        const [gameList, backToPage] = fileBrowse.pop();
-        listSetter(getItemProps(gameList, fileBrowse, listApi, listSetter));
-        listApi.pageTo(backToPage);
+        const element = fileBrowse.pop();
+        listSetter(getItemProps(element.items, fileBrowse, listApiAccessor, listSetter));
+        listApiAccessor().pageTo(element.currentPage);
     }
     const backItem: ListItemProps = {
         title: "返回上一级",
@@ -25,12 +25,11 @@ export default function getItemProps(
     }
     const pushFunction = async (_:any , gameInfo: ListItemProps) => {
         let gameList = [backItem];
-        gameList.concat(
-                getItemProps(await fileBrowse.push(gameInfo.title, 1),
-                    fileBrowse, listApi, listSetter)
-        );
-        listSetter(gameList);
-        listApi.pageTo(1);
+        const newStackElement = await fileBrowse.push(gameInfo.title, listApiAccessor().getPage());
+        const appendList = getItemProps(newStackElement.items,
+            fileBrowse, listApiAccessor, listSetter);
+        listSetter(gameList.concat(appendList));
+        listApiAccessor().pageTo(newStackElement.currentPage);
     }
 
     let listItems: ListItemProps[] = [];

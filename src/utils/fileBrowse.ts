@@ -4,38 +4,73 @@ import shuffle from "./shuffle.ts";
 
 const BaseUrl = "https://shinnku.com/api/download/legacy/";
 
+export type FilePathStackElement = {
+    items: GameItem[];
+    currentPage: number;
+    folderName: string;
+}
+
+class FilePathStack {
+    stack: FilePathStackElement[];
+    constructor(rootElement: FilePathStackElement) {
+        this.stack = [
+            rootElement
+        ];
+    }
+
+    push(element: FilePathStackElement) {
+        this.stack.push(element);
+    }
+
+    pop(): FilePathStackElement {
+        return this.stack.pop()!;
+    }
+
+    setTopPage(page: number) {
+        this.stack[this.stack.length - 1].currentPage = page;
+    }
+
+    getPath(): string {
+        return this.stack.map((element) => element.folderName).join("/");
+    }
+}
+
 export class FilePath {
     target: typeof targets[number];
-    folders: string[];
-    listPages: number[];
-    cachedList: GameItem[][];
+    stack: FilePathStack;
 
-    constructor(target: typeof targets[number]) {
+    constructor(target: typeof targets[number], startItems: GameItem[]) {
         this.target = target;
-        this.folders = [];
-        this.listPages = [];
-        this.cachedList = [];
+        const rootElement: FilePathStackElement = {
+            folderName: target,
+            currentPage: 0,
+            items: startItems,
+        }
+        this.stack = new FilePathStack(rootElement);
     }
 
-    async push(folder: string, listPage: number): Promise<GameItem[]> {
-        this.folders.push(folder);
-        this.listPages.push(listPage);
-        const reqs = await fetch(this.getFolderUrl());
-        const resJson: GameItem[] = shuffle(await reqs.json());
-        this.cachedList.push(resJson);
-        return resJson;
+    async push(folder: string, listPage: number): Promise<FilePathStackElement> {
+        this.stack.setTopPage(listPage);
+        const newStackElement: FilePathStackElement = {
+            folderName: folder,
+            currentPage: 0,
+            items: []
+        }
+        const req = await fetch(BaseUrl + '/' + this.stack.getPath() + "/" + folder);
+        const list = shuffle(await req.json());
+        newStackElement.items = list.map((item: any) => {
+            return {
+                title: item.name,
+                size: item.size,
+                resourceType: item["@type"] as "folder" | "file",
+            }
+        });
+        this.stack.push(newStackElement);
+        return newStackElement;
     }
 
-    pop(): [GameItem[],number] {
-        this.folders.pop();
-        return [this.cachedList.pop()!,this.listPages.pop()!];
-    }
-
-    getUrl(gameName: string): string {
-        return BaseUrl + this.target + "/" + this.folders.join("/") + "/" + gameName;
-    }
-
-    getFolderUrl(): string {
-        return BaseUrl + this.target + "/" + this.folders.join("/");
+    pop(): FilePathStackElement {
+        this.stack.pop();
+        return this.stack.stack[this.stack.stack.length - 1];
     }
 }
