@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg data-name="Expand" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+    <defs>
+        <style>
+            .cls-1 {
+            stroke: #353535;
+            stroke-linecap: round;
+            stroke-miterlimit: 10;
+            stroke-width: 4px;
+            }
+
+            .cls-1, .cls-2 {
+            fill: none;
+            }
+
+            .cls-2 {
+            stroke-width: 0px;
+            }
+        </style>
+    </defs>
+    <rect class="cls-2" width="40" height="40"/>
+    <path class="cls-1" d="m35.35,18.96l-9.62,8.65c-3.16,2.84-8.29,2.84-11.46,0l-9.62-8.65"/>
+</svg>

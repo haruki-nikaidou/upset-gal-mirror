@@ -3,6 +3,8 @@ import '../../style/glass.css';
 import styles from "./Header.module.css";
 import {createSignal, Match, onCleanup, onMount, Switch} from "solid-js";
 import {useNavigate} from "@solidjs/router";
+import ExpandIcon from "../Icon/ExpandIcon.tsx";
+
 
 const path = [
     "/",
@@ -80,7 +82,9 @@ const MobileHeader: Component = () => {
                 <div class={`${styles.title} ${styles.mobileTitle}`}>
                 失落の小站 镜像站
                 </div>
-                <button onclick={toggleHidden}> menu </button>
+                <button onclick={toggleHidden} class={`${styles.expandIcon} ${hidden() ? '' : styles.reversedIcon}`}>
+                    <ExpandIcon width="35px"/>
+                </button>
 
             </header>
             <div class={`${styles.mobileHeader} glass ${hidden()? styles.hidden : ''}`}>

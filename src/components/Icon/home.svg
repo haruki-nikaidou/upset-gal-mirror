@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg data-name="Home" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  <defs>
+    <style>
+      .cls-1 {
+      stroke: #231f20;
+      stroke-linecap: round;
+      stroke-miterlimit: 10;
+      stroke-width: 5px;
+      }
+
+      .cls-1, .cls-2 {
+      fill: none;
+      }
+
+      .cls-2 {
+      stroke-width: 0px;
+      }
+    </style>
+  </defs>
+      <rect class="cls-2" width="40" height="40"/>
+      <g>
+        <path class="cls-1" d="m3.39,17.95L13.64,7.92c3.51-3.44,9.2-3.44,12.71,0l10.25,10.03"/>
+        <path class="cls-1" d="m31.44,21.78v7.78c0,2.66-2.83,4.81-6.33,4.81h-10.23c-3.49,0-6.33-2.16-6.33-4.81v-7.78"/>
+        <line class="cls-1" x1="33.65" y1="7.55" x2="33.65" y2="15.1"/>
+      </g>
+</svg>

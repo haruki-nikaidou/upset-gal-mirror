@@ -25,11 +25,20 @@
     flex-direction: row;
 }
 
+.expandIcon > img {
+    transition: transform 0.3s ease;
+    transform: rotate(0deg);
+}
+
+.reversedIcon > img {
+    transform: rotate(-180deg);
+}
+
 .bar.mobileBar > button {
     background: none;
     border: none;
     border-left: solid 1pt rgba(96, 96, 96, 0.5);
-    min-width: 3.5em;
+    width: 3.4375rem;
     box-sizing: border-box;
 }
 
