@@ -1,40 +1,73 @@
 import type {Component} from 'solid-js';
-import {createSignal} from 'solid-js';
+import {Accessor, createEffect, createSignal, Setter, Show} from 'solid-js';
 import styles from './Tools.module.css';
 import "../../style/glass.css";
-import List from "../../components/List/List.tsx";
+import List, {ListApi} from "../../components/List/List.tsx";
 import Search from "../../components/Search/Search.tsx";
 import Logo from "../../components/Logo/Logo.tsx";
 import ButtonRatio from "../../components/ButtonRatio/ButtonRatio.tsx";
+import {fetchList, targets} from "../../utils/loadList.ts";
+import {ListItemProps} from "../../components/List/ListItem.tsx";
+import {FilePath} from "../../utils/fileBrowse.ts";
+import {GameItem, search} from "../../utils/search.ts";
+import getItemProps from "../../utils/listItemPropsGenerate.ts";
 
 const Tools: Component = () => {
-    const [selectedTab, setSelectedTab] = createSignal(0);
-    const item1 = [
-        {
-            title: "title",
-            size: "size",
-            resourceType: "resourceType"
-        },
+    const toolTypeList:(typeof targets[number])[] = [
+        "simulate",
+        "tools"
     ];
-    const item2 = [
-        {
-            title: "title2",
-            size: "size2",
-            resourceType: "resourceType2"
+    const gameLists: ([Accessor<ListItemProps[]>,Setter<ListItemProps[]>] | null)[] = [
+        null,
+        null,
+    ]
+    const displayLists = [
+        createSignal<ListItemProps[]>([]),
+        createSignal<ListItemProps[]>([]),
+    ];
+    let listPages=[0,0]
+    let [ready, setReady] = createSignal(false);
+    let [toolType, setToolType] = createSignal(0);
+    let filePaths: (FilePath | null)[] = [null, null];
+
+    let listClone: ListApi;
+    const listOnInit = (list: ListApi) => {
+        listClone = list;
+    }
+    const handleSearch = (keyword: string) => {
+        const displaySetter = displayLists[toolType()][1];
+        const gameAccessor = gameLists[toolType()]![0];
+        if (keyword === "") {
+            displaySetter(gameAccessor());
+            return;
         }
-    ];
-
-
-    const [list, setList] = createSignal(item1);
+        displaySetter(search(keyword, gameAccessor() as GameItem[]));
+        listClone.pageTo(0);
+    }
 
     const onSwitch = (index: number) => {
-        setSelectedTab(index);
-        if (selectedTab() === 0) {
-            setList(item1);
-        } else {
-            setList(item2);
-        }
+        listPages[toolType()] = listClone!.getPage();
+        setToolType(index);
+        listClone!.pageTo(listPages[index]);
     }
+
+    createEffect(async () => {
+        const listAccessor = () => listClone;
+        const toolItemLists = await Promise.all([
+            fetchList('simulate'),
+            fetchList('tools')
+        ]);
+        for (let i = 0; i < 2; i++) {
+            filePaths[i] = new FilePath(toolTypeList[i], toolItemLists[i]);
+            gameLists[i] = createSignal(
+                getItemProps(toolItemLists[i], filePaths[i]!, listAccessor, displayLists[i][1])
+            );
+            const displaySetter = displayLists[i][1];
+            displaySetter(gameLists[i]![0]());
+        }
+        setReady(true);
+    });
+
     return (
         <>
             <Logo/>
@@ -51,8 +84,10 @@ const Tools: Component = () => {
                 }
                              onSwitch={onSwitch}
                 />
-                <Search/>
-                <List items={list()}/>
+                <Search onSearch={handleSearch}/>
+                <Show when={ready()}>
+                    <List onInit={listOnInit} items={displayLists[toolType()][0]()}/>
+                </Show>
             </div>
         </>
     )
