@@ -86,7 +86,7 @@ const Tools: Component = () => {
                 />
                 <Search onSearch={handleSearch}/>
                 <Show when={ready()}>
-                    <List onInit={listOnInit} items={displayLists[toolType()][0]()}/>
+                    <List itemPerPage={7} onInit={listOnInit} items={displayLists[toolType()][0]()}/>
                 </Show>
             </div>
         </>
