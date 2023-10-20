@@ -19,7 +19,7 @@ export declare const targets: [
 ]
 
 export async function fetchList(target: typeof targets[number]): Promise<GameItem[]> {
-    const url = `https://shinnku.com/api/download/mkw12345/${target}`;
+    const url = `https://shinnku.plr.moe/mirror/api/${target}`;
     const resp = await fetch(url);
 
     const resJson: gameInfo[] = await resp.json();

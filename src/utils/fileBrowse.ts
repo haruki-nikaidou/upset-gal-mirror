@@ -2,7 +2,7 @@ import {targets} from "./loadList.ts";
 import {GameItem} from "./search.ts";
 import shuffle from "./shuffle.ts";
 
-const BaseUrl = "https://shinnku.com/api/download/legacy/";
+const BaseUrl = "https://shinnku.plr.moe/mirror/api/";
 
 export type FilePathStackElement = {
     items: GameItem[];
