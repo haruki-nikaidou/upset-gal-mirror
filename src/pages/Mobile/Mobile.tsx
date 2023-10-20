@@ -11,6 +11,7 @@ import {FilePath} from "../../utils/fileBrowse.ts";
 import {fetchList, targets} from "../../utils/loadList.ts";
 import getItemProps from "../../utils/listItemPropsGenerate.ts";
 import {GameItem, search} from "../../utils/search.ts";
+import shuffle from "../../utils/shuffle.ts";
 
 const Mobile: Component = () => {
     const platformList: (typeof targets[number])[]= [
@@ -68,6 +69,7 @@ const Mobile: Component = () => {
             fetchList('artroid')
         ]);
         for (let i = 0; i < 4; i++) {
+            gameItemLists[i] = shuffle(gameItemLists[i]);
             filePaths[i] = new FilePath(platformList[i], gameItemLists[i]);
             gameLists[i] = createSignal(
                 getItemProps(gameItemLists[i], filePaths[i]!, listAccessor, displayLists[i][1])

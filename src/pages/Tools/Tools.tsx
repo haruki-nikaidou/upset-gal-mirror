@@ -11,6 +11,7 @@ import {ListItemProps} from "../../components/List/ListItem.tsx";
 import {FilePath} from "../../utils/fileBrowse.ts";
 import {GameItem, search} from "../../utils/search.ts";
 import getItemProps from "../../utils/listItemPropsGenerate.ts";
+import shuffle from "../../utils/shuffle.ts";
 
 const Tools: Component = () => {
     const toolTypeList:(typeof targets[number])[] = [
@@ -58,6 +59,7 @@ const Tools: Component = () => {
             fetchList('tools')
         ]);
         for (let i = 0; i < 2; i++) {
+            toolItemLists[i] = shuffle(toolItemLists[i]);
             filePaths[i] = new FilePath(toolTypeList[i], toolItemLists[i]);
             gameLists[i] = createSignal(
                 getItemProps(toolItemLists[i], filePaths[i]!, listAccessor, displayLists[i][1])

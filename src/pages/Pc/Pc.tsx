@@ -10,6 +10,7 @@ import {GameItem, search} from "../../utils/search.ts";
 import {ListItemProps} from "../../components/List/ListItem.tsx";
 import {FilePath} from "../../utils/fileBrowse.ts";
 import getItemProps from "../../utils/listItemPropsGenerate.ts";
+import shuffle from "../../utils/shuffle.ts";
 
 const Pc: Component = () => {
     let [gameList, setGameList] = createSignal<ListItemProps[]>([]);
@@ -37,7 +38,7 @@ const Pc: Component = () => {
 
         let windowsGame = await fetchList('win');
         let rpgGame = await fetchList('rpg');
-        const fetchedGameList = windowsGame.concat(rpgGame);
+        const fetchedGameList = shuffle(windowsGame.concat(rpgGame));
         const filePath = new FilePath('win', fetchedGameList);
         const itemProps = getItemProps(fetchedGameList, filePath, listAccessor, setDisplayList)
         setGameList(
