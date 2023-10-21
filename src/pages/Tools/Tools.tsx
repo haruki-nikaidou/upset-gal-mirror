@@ -12,7 +12,8 @@ import {FilePath} from '../../utils/fileBrowse.ts';
 import {search} from '../../utils/search.ts';
 import getItemProps from '../../utils/listItemPropsGenerate.ts';
 import shuffle from '../../utils/shuffle.ts';
-import {GameItem, Targets} from '../../types/types.ts';
+import {Targets} from '../../types/constant.ts';
+import {GameItem} from "../../types/types.ts";
 
 const Tools: Component = () => {
     const toolTypeList:(typeof Targets[number])[] = [

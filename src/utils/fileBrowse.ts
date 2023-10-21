@@ -1,5 +1,6 @@
 import {fetchListFromUrl} from './loadList.ts';
-import {BaseUrl, GameItem, Targets} from '../types/types.ts';
+import {BaseUrl, Targets} from '../types/constant.ts';
+import {GameItem} from "../types/types.ts";
 
 export type FilePathStackElement = {
     items: GameItem[];

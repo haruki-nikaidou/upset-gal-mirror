@@ -1,4 +1,5 @@
 import Fuse from 'fuse.js';
+
 import {GameItem} from "../types/types.ts";
 
 export function search (name: string, data: GameItem[]): GameItem[] {

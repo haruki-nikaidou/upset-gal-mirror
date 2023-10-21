@@ -11,6 +11,7 @@ import {ListItemProps} from '../../components/List/ListItem.tsx';
 import {FilePath} from '../../utils/fileBrowse.ts';
 import getItemProps from '../../utils/listItemPropsGenerate.ts';
 import shuffle from '../../utils/shuffle.ts';
+
 import {GameItem} from "../../types/types.ts";
 
 const Pc: Component = () => {

@@ -1,4 +1,5 @@
-import {GameInfo, GameItem, Targets} from '../types/types.ts';
+import {Targets} from '../types/constant.ts';
+import {GameInfo, GameItem} from "../types/types.ts";
 
 export async function fetchListFromUrl(fromUrl: string): Promise<GameItem[]> {
     const resp = await fetch(fromUrl);
