@@ -14,3 +14,5 @@ export declare const resourceTypes: [
     'folder',
     'file',
 ];
+
+export const Version = '1.0.1';

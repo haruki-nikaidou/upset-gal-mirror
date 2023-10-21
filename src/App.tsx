@@ -6,6 +6,7 @@ import {Route, Router, Routes} from '@solidjs/router';
 import Home from './pages/Home/Home.tsx';
 import Pc from './pages/Pc/Pc.tsx';
 import Tools from './pages/Tools/Tools.tsx';
+import Footer from "./components/Footer/Footer";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/mobile" component={Mobile} />
                 <Route path="/tools" component={Tools} />
             </Routes>
+            <Footer />
         </Router>
     );
 }
