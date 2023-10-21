@@ -37,19 +37,19 @@ export function hsvToRgb(hsv: HsvColor): RgbColor {
     const {h, s, v} = hsv;
     let r = 0, g = 0, b = 0;
 
-    let i: number = Math.floor(h * 6);
-    let f: number = h * 6 - i;
-    let p: number = v * (1 - s);
-    let q: number = v * (1 - f * s);
-    let t: number = v * (1 - (1 - f) * s);
+    const i: number = Math.floor(h * 6);
+    const f: number = h * 6 - i;
+    const p: number = v * (1 - s);
+    const q: number = v * (1 - f * s);
+    const t: number = v * (1 - (1 - f) * s);
 
     switch (i % 6) {
-        case 0: [r, g, b] = [v, t, p]; break;
-        case 1: [r, g, b] = [q, v, p]; break;
-        case 2: [r, g, b] = [p, v, t]; break;
-        case 3: [r, g, b] = [p, q, v]; break;
-        case 4: [r, g, b] = [t, p, v]; break;
-        case 5: [r, g, b] = [v, p, q]; break;
+    case 0: [r, g, b] = [v, t, p]; break;
+    case 1: [r, g, b] = [q, v, p]; break;
+    case 2: [r, g, b] = [p, v, t]; break;
+    case 3: [r, g, b] = [p, q, v]; break;
+    case 4: [r, g, b] = [t, p, v]; break;
+    case 5: [r, g, b] = [v, p, q]; break;
     }
 
     // Convert r, g, b to 0-255 range
@@ -66,9 +66,9 @@ export function rgbToHsv(rgb: RgbColor): HsvColor {
     g /= 255;
     b /= 255;
 
-    let max = Math.max(r, g, b), min = Math.min(r, g, b);
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
     let h, s, v = max;
-    let d = max - min;
+    const d = max - min;
 
     s = max == 0 ? 0 : d / max;
 
@@ -77,9 +77,9 @@ export function rgbToHsv(rgb: RgbColor): HsvColor {
     } else {
         h = 0;
         switch (max) {
-            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-            case g: h = (b - r) / d + 2; break;
-            case b: h = (r - g) / d + 4; break;
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
         }
         h /= 6;
     }
@@ -106,5 +106,5 @@ export function getLightColorTheme(hue: number): ColorTheme {
         textColor: toHexColor(hsvToRgb({h: hue, s: 0.68, v: 0.24})),
         majorColor: toHexColor(hsvToRgb({h: hue, s: 0.77, v: 0.75})),
         glassColor: toHexColor(hsvToRgb({h: hue, s: 0.17, v: 1.00}))
-    }
+    };
 }

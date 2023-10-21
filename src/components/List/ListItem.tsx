@@ -13,13 +13,13 @@ const ListItem: Component<ListItemProps> = (props) => {
     const {title, size, resourceType} = props;
     return (
         <div class={`${styles.listItem}`}
-                onClick={(e) => props.onClick?.(e, props) }
-                onContextMenu={(e) => props.onContextMenu?.(e, props)}
+            onClick={(e) => props.onClick?.(e, props) }
+            onContextMenu={(e) => props.onContextMenu?.(e, props)}
         >
             <p class={`${styles.title}`}>{title}</p>
             <p class={`${styles.info}`}>大小：{size}，类型：{resourceType}</p>
         </div>
-    )
-}
+    );
+};
 
 export default ListItem;

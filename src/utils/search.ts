@@ -1,9 +1,9 @@
-import Fuse from "fuse.js";
+import Fuse from 'fuse.js';
 
 declare const resourceTypes: [
-    "folder",
-    "file",
-]
+    'folder',
+    'file',
+];
 
 export type GameItem = {
     title: string;
@@ -12,8 +12,8 @@ export type GameItem = {
 }
 
 export function search (name: string, data: GameItem[]): GameItem[] {
-    let fuse = new Fuse(data, {
-        keys: ["title"],
+    const fuse = new Fuse(data, {
+        keys: ['title'],
     });
     return fuse.search(name).map((item) => item.item);
 }

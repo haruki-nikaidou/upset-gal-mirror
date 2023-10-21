@@ -1,46 +1,46 @@
 import type {Component} from 'solid-js';
 import styles from './Pc.module.css';
-import "../../style/glass.css";
-import List, {ListApi} from "../../components/List/List.tsx";
-import Search from "../../components/Search/Search.tsx";
-import Logo from "../../components/Logo/Logo.tsx";
-import {createEffect, createSignal, Show} from "solid-js";
-import {fetchList} from "../../utils/loadList.ts";
-import {GameItem, search} from "../../utils/search.ts";
-import {ListItemProps} from "../../components/List/ListItem.tsx";
-import {FilePath} from "../../utils/fileBrowse.ts";
-import getItemProps from "../../utils/listItemPropsGenerate.ts";
-import shuffle from "../../utils/shuffle.ts";
+import '../../style/glass.css';
+import List, {ListApi} from '../../components/List/List.tsx';
+import Search from '../../components/Search/Search.tsx';
+import Logo from '../../components/Logo/Logo.tsx';
+import {createEffect, createSignal, Show} from 'solid-js';
+import {fetchList} from '../../utils/loadList.ts';
+import {GameItem, search} from '../../utils/search.ts';
+import {ListItemProps} from '../../components/List/ListItem.tsx';
+import {FilePath} from '../../utils/fileBrowse.ts';
+import getItemProps from '../../utils/listItemPropsGenerate.ts';
+import shuffle from '../../utils/shuffle.ts';
 
 const Pc: Component = () => {
-    let [gameList, setGameList] = createSignal<ListItemProps[]>([]);
-    let [ready, setReady] = createSignal(false);
-    let [displayList, setDisplayList] = createSignal<ListItemProps[]>([]);
+    const [gameList, setGameList] = createSignal<ListItemProps[]>([]);
+    const [ready, setReady] = createSignal(false);
+    const [displayList, setDisplayList] = createSignal<ListItemProps[]>([]);
 
     const handleSearch = (keyword: string) => {
-        if (keyword === "") {
+        if (keyword === '') {
             setDisplayList(gameList());
             return;
         }
         setDisplayList(search(keyword, gameList() as GameItem[]));
         setPage(0);
-    }
+    };
 
     let setPage: (page: number) => void;
     let listClone: ListApi;
     const listOnInit = (list: ListApi) => {
         setPage = list.pageTo;
         listClone = list;
-    }
+    };
 
     createEffect(async () => {
         const listAccessor = () => listClone;
 
-        let windowsGame = await fetchList('win');
-        let rpgGame = await fetchList('rpg');
+        const windowsGame = await fetchList('win');
+        const rpgGame = await fetchList('rpg');
         const fetchedGameList = shuffle(windowsGame.concat(rpgGame));
         const filePath = new FilePath('win', fetchedGameList);
-        const itemProps = getItemProps(fetchedGameList, filePath, listAccessor, setDisplayList)
+        const itemProps = getItemProps(fetchedGameList, filePath, listAccessor, setDisplayList);
         setGameList(
             itemProps
         );
@@ -49,9 +49,9 @@ const Pc: Component = () => {
     });
 
     createEffect(() => {
-        gameList()
+        gameList();
         setDisplayList(gameList());
-    })
+    });
     return (
         <>
             <Logo/>
@@ -62,7 +62,7 @@ const Pc: Component = () => {
                 </Show>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default Pc;

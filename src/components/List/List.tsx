@@ -1,7 +1,7 @@
-import ListItem, {ListItemProps} from "./ListItem.tsx";
-import {Component, createSignal, For, JSX, splitProps} from "solid-js";
-import "../../style/glass.css"
-import styles from "./List.module.css";
+import ListItem, {ListItemProps} from './ListItem.tsx';
+import {Component, createSignal, For, JSX, splitProps} from 'solid-js';
+import '../../style/glass.css';
+import styles from './List.module.css';
 
 export interface ListProps {
     items: ListItemProps[];
@@ -17,10 +17,10 @@ export interface ListApi {
 const List: Component<ListProps> = (props) => {
     // split items into pages
     const pages: () => ListItemProps[][] = () =>  {
-        const [local] = splitProps(props, ["items", "itemPerPage"]);
+        const [local] = splitProps(props, ['items', 'itemPerPage']);
         const items = local.items;
         const itemPerPage = local.itemPerPage ? local.itemPerPage : 10;
-        let pages: ListItemProps[][] = [];
+        const pages: ListItemProps[][] = [];
         for (let i = 0; i < items.length; i += itemPerPage) {
             pages.push(items.slice(i, i + itemPerPage));
         }
@@ -31,7 +31,7 @@ const List: Component<ListProps> = (props) => {
     };
 
     // create page signal
-    let [page, setPage] = createSignal(0);
+    const [page, setPage] = createSignal(0);
     const previousPage = () => {
         if (page() > 0) {
             setPage(page() - 1);
@@ -41,7 +41,7 @@ const List: Component<ListProps> = (props) => {
         if (page() < pages().length - 1) {
             setPage(page() + 1);
         }
-    }
+    };
 
     // display buttons to switch pages
     // for any page, display buttons that can switch to +-2 pages and that can switch to the first and last page
@@ -72,14 +72,14 @@ const List: Component<ListProps> = (props) => {
             }
         }
         return buttonIndexes;
-    }
+    };
 
     // render buttons
-    let buttons: JSX.Element = (
+    const buttons: JSX.Element = (
         <For each={buttonIndexes()}>
             {(index) => (
                 <button
-                    class={`${styles.button} ${index === page() ? styles.selected : ""}`}
+                    class={`${styles.button} ${index === page() ? styles.selected : ''}`}
                     onClick={() => {
                         setPage(index);
                     }}>
@@ -96,7 +96,7 @@ const List: Component<ListProps> = (props) => {
     const handleInput = (i: string) => {
         if (parseInt(i)) {
             setInputValue(parseInt(i));
-        } else if (i === "") {
+        } else if (i === '') {
         } else {
             setInputValue(page() + 1);
         }
@@ -115,7 +115,7 @@ const List: Component<ListProps> = (props) => {
 
     return (
         <>
-            <div class={`glass higher-blur glass-on-glass`}>
+            <div class={'glass higher-blur glass-on-glass'}>
                 <div class={`${styles.list}`}>
                     <For each={pages()[page()]}>
                         {(item) => (
@@ -128,12 +128,12 @@ const List: Component<ListProps> = (props) => {
                         <button
                             disabled={page() === 0}
                             onClick={previousPage}
-                        > {"<"} </button>
+                        > {'<'} </button>
                         {buttons}
                         <button
                             disabled={page() === pages().length - 1}
                             onClick={nextPage}
-                        > {">"} </button>
+                        > {'>'} </button>
                     </div>
                     <div class={`${styles.goto}`}>
                         <button
@@ -157,7 +157,7 @@ const List: Component<ListProps> = (props) => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default List;

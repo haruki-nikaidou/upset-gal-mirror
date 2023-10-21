@@ -1,56 +1,56 @@
 import type {Component} from 'solid-js';
 import {Accessor, createEffect, createSignal, Setter, Show} from 'solid-js';
 import styles from './Tools.module.css';
-import "../../style/glass.css";
-import List, {ListApi} from "../../components/List/List.tsx";
-import Search from "../../components/Search/Search.tsx";
-import Logo from "../../components/Logo/Logo.tsx";
-import ButtonRatio from "../../components/ButtonRatio/ButtonRatio.tsx";
-import {fetchList, targets} from "../../utils/loadList.ts";
-import {ListItemProps} from "../../components/List/ListItem.tsx";
-import {FilePath} from "../../utils/fileBrowse.ts";
-import {GameItem, search} from "../../utils/search.ts";
-import getItemProps from "../../utils/listItemPropsGenerate.ts";
-import shuffle from "../../utils/shuffle.ts";
+import '../../style/glass.css';
+import List, {ListApi} from '../../components/List/List.tsx';
+import Search from '../../components/Search/Search.tsx';
+import Logo from '../../components/Logo/Logo.tsx';
+import ButtonRatio from '../../components/ButtonRatio/ButtonRatio.tsx';
+import {fetchList, targets} from '../../utils/loadList.ts';
+import {ListItemProps} from '../../components/List/ListItem.tsx';
+import {FilePath} from '../../utils/fileBrowse.ts';
+import {GameItem, search} from '../../utils/search.ts';
+import getItemProps from '../../utils/listItemPropsGenerate.ts';
+import shuffle from '../../utils/shuffle.ts';
 
 const Tools: Component = () => {
     const toolTypeList:(typeof targets[number])[] = [
-        "simulate",
-        "tools"
+        'simulate',
+        'tools'
     ];
     const gameLists: ([Accessor<ListItemProps[]>,Setter<ListItemProps[]>] | null)[] = [
         null,
         null,
-    ]
+    ];
     const displayLists = [
         createSignal<ListItemProps[]>([]),
         createSignal<ListItemProps[]>([]),
     ];
-    let listPages=[0,0]
-    let [ready, setReady] = createSignal(false);
-    let [toolType, setToolType] = createSignal(0);
-    let filePaths: (FilePath | null)[] = [null, null];
+    const listPages=[0,0];
+    const [ready, setReady] = createSignal(false);
+    const [toolType, setToolType] = createSignal(0);
+    const filePaths: (FilePath | null)[] = [null, null];
 
     let listClone: ListApi;
     const listOnInit = (list: ListApi) => {
         listClone = list;
-    }
+    };
     const handleSearch = (keyword: string) => {
         const displaySetter = displayLists[toolType()][1];
         const gameAccessor = gameLists[toolType()]![0];
-        if (keyword === "") {
+        if (keyword === '') {
             displaySetter(gameAccessor());
             return;
         }
         displaySetter(search(keyword, gameAccessor() as GameItem[]));
         listClone.pageTo(0);
-    }
+    };
 
     const onSwitch = (index: number) => {
         listPages[toolType()] = listClone!.getPage();
         setToolType(index);
         listClone!.pageTo(listPages[index]);
-    }
+    };
 
     createEffect(async () => {
         const listAccessor = () => listClone;
@@ -77,14 +77,14 @@ const Tools: Component = () => {
                 <ButtonRatio selected={0} items={
                     [
                         {
-                            title: "模拟器",
+                            title: '模拟器',
                         },
                         {
-                            title: "常用其他工具",
+                            title: '常用其他工具',
                         }
                     ]
                 }
-                             onSwitch={onSwitch}
+                onSwitch={onSwitch}
                 />
                 <Search onSearch={handleSearch}/>
                 <Show when={ready()}>
@@ -92,7 +92,7 @@ const Tools: Component = () => {
                 </Show>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default Tools;

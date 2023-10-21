@@ -1,8 +1,8 @@
 import type {Component} from 'solid-js';
-import "../../style/glass.css";
-import Typography from "../../components/Typography/Typography.tsx";
-import styles from "./Home.module.css";
-import Logo from "../../components/Logo/Logo.tsx";
+import '../../style/glass.css';
+import Typography from '../../components/Typography/Typography.tsx';
+import styles from './Home.module.css';
+import Logo from '../../components/Logo/Logo.tsx';
 
 const Home: Component = () => {
     return (
@@ -32,7 +32,7 @@ const Home: Component = () => {
                 </Typography>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default Home;

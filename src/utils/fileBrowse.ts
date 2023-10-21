@@ -1,8 +1,8 @@
-import {targets} from "./loadList.ts";
-import {GameItem} from "./search.ts";
-import shuffle from "./shuffle.ts";
+import {targets} from './loadList.ts';
+import {GameItem} from './search.ts';
+import shuffle from './shuffle.ts';
 
-const BaseUrl = "https://shinnku.plr.moe/mirror/api/";
+const BaseUrl = 'https://shinnku.plr.moe/mirror/api/';
 
 export type FilePathStackElement = {
     items: GameItem[];
@@ -31,7 +31,7 @@ class FilePathStack {
     }
 
     getPath(): string {
-        return this.stack.map((element) => element.folderName).join("/");
+        return this.stack.map((element) => element.folderName).join('/');
     }
 }
 
@@ -45,7 +45,7 @@ export class FilePath {
             folderName: target,
             currentPage: 0,
             items: startItems,
-        }
+        };
         this.stack = new FilePathStack(rootElement);
     }
 
@@ -55,15 +55,15 @@ export class FilePath {
             folderName: folder,
             currentPage: 0,
             items: []
-        }
-        const req = await fetch(BaseUrl + '/' + this.stack.getPath() + "/" + folder);
+        };
+        const req = await fetch(BaseUrl + '/' + this.stack.getPath() + '/' + folder);
         const list = shuffle(await req.json());
         newStackElement.items = list.map((item: any) => {
             return {
                 title: item.name,
                 size: item.size,
-                resourceType: item["@type"] as "folder" | "file",
-            }
+                resourceType: item['@type'] as 'folder' | 'file',
+            };
         });
         this.stack.push(newStackElement);
         return newStackElement;

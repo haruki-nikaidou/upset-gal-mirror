@@ -1,26 +1,25 @@
-import {GameItem} from "./search.ts";
+import {GameItem} from './search.ts';
 
 export type gameInfo = {
-    "@type": string,
+    '@type': string,
     date: string,
     name: string,
     size: string
 }
 
 export declare const targets: [
-    "win",
-    "rpg",
-    "krkr",
-    "apk",
-    "ons",
-    "artroid",
-    "simulate",
-    "tools"
-]
+    'win',
+    'rpg',
+    'krkr',
+    'apk',
+    'ons',
+    'artroid',
+    'simulate',
+    'tools'
+];
 
-export async function fetchList(target: typeof targets[number]): Promise<GameItem[]> {
-    const url = `https://shinnku.plr.moe/mirror/api/${target}`;
-    const resp = await fetch(url);
+export async function fetchListFromUrl(fromUrl: string): Promise<GameItem[]> {
+    const resp = await fetch(fromUrl);
 
     const resJson: gameInfo[] = await resp.json();
 
@@ -28,7 +27,7 @@ export async function fetchList(target: typeof targets[number]): Promise<GameIte
         return {
             title: item.name,
             size: item.size,
-            resourceType: item["@type"] as "folder" | "file",
-        }
+            resourceType: item['@type'] as 'folder' | 'file',
+        };
     });
 }

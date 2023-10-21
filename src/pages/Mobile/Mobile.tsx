@@ -1,17 +1,17 @@
 import type {Accessor, Component, Setter} from 'solid-js';
 import {createEffect, createSignal, Show} from 'solid-js';
 import styles from './Mobile.module.css';
-import "../../style/glass.css";
-import List, {ListApi} from "../../components/List/List.tsx";
-import Search from "../../components/Search/Search.tsx";
-import Logo from "../../components/Logo/Logo.tsx";
-import ButtonRatio from "../../components/ButtonRatio/ButtonRatio.tsx";
-import {ListItemProps} from "../../components/List/ListItem.tsx";
-import {FilePath} from "../../utils/fileBrowse.ts";
-import {fetchList, targets} from "../../utils/loadList.ts";
-import getItemProps from "../../utils/listItemPropsGenerate.ts";
-import {GameItem, search} from "../../utils/search.ts";
-import shuffle from "../../utils/shuffle.ts";
+import '../../style/glass.css';
+import List, {ListApi} from '../../components/List/List.tsx';
+import Search from '../../components/Search/Search.tsx';
+import Logo from '../../components/Logo/Logo.tsx';
+import ButtonRatio from '../../components/ButtonRatio/ButtonRatio.tsx';
+import {ListItemProps} from '../../components/List/ListItem.tsx';
+import {FilePath} from '../../utils/fileBrowse.ts';
+import {fetchList, targets} from '../../utils/loadList.ts';
+import getItemProps from '../../utils/listItemPropsGenerate.ts';
+import {GameItem, search} from '../../utils/search.ts';
+import shuffle from '../../utils/shuffle.ts';
 
 const Mobile: Component = () => {
     const platformList: (typeof targets[number])[]= [
@@ -26,39 +26,39 @@ const Mobile: Component = () => {
         null,
         null,
         null
-    ]
+    ];
     const displayLists = [
         createSignal<ListItemProps[]>([]),
         createSignal<ListItemProps[]>([]),
         createSignal<ListItemProps[]>([]),
         createSignal<ListItemProps[]>([])
     ];
-    let listPages=[0,0,0,0]
-    let [ready, setReady] = createSignal(false);
-    let [platform, setPlatform] = createSignal(0);
-    let filePaths: (FilePath | null)[] = [null, null, null, null];
+    const listPages=[0,0,0,0];
+    const [ready, setReady] = createSignal(false);
+    const [platform, setPlatform] = createSignal(0);
+    const filePaths: (FilePath | null)[] = [null, null, null, null];
 
     let listClone: ListApi;
     const listOnInit = (list: ListApi) => {
         listClone = list;
-    }
+    };
 
     const handleSearch = (keyword: string) => {
         const displaySetter = displayLists[platform()][1];
         const gameAccessor = gameLists[platform()]![0];
-        if (keyword === "") {
+        if (keyword === '') {
             displaySetter(gameAccessor());
             return;
         }
         displaySetter(search(keyword, gameAccessor() as GameItem[]));
         listClone.pageTo(0);
-    }
+    };
 
     const onSwitch = (index: number) => {
         listPages[platform()] = listClone!.getPage();
         setPlatform(index);
         listClone!.pageTo(listPages[index]);
-    }
+    };
 
     createEffect(async () => {
         const listAccessor = () => listClone;
@@ -87,20 +87,20 @@ const Mobile: Component = () => {
                 <ButtonRatio selected={0} items={
                     [
                         {
-                            title: "Kirikiri 2",
+                            title: 'Kirikiri 2',
                         },
                         {
-                            title: "APK",
+                            title: 'APK',
                         },
                         {
-                            title: "ons",
+                            title: 'ons',
                         },
                         {
-                            title: "Artroid",
+                            title: 'Artroid',
                         }
                     ]
                 }
-                             onSwitch={onSwitch}
+                onSwitch={onSwitch}
                 />
                 <Search onSearch={handleSearch}/>
                 <Show when={ready()}>
@@ -108,7 +108,7 @@ const Mobile: Component = () => {
                 </Show>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default Mobile;
