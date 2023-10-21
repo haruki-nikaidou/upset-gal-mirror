@@ -1,14 +1,14 @@
-import {GameItem} from './search.ts';
 import {FilePath} from './fileBrowse.ts';
 import {ListItemProps} from '../components/List/ListItem.tsx';
 import launchDownload from './launchDownload.ts';
 import {ListApi} from '../components/List/List.tsx';
 import {Setter} from 'solid-js';
-import {targets} from './loadList.ts';
+
+import {GameItem, Targets} from '../types.ts';
 
 export default function getItemProps(
     games: GameItem[], fileBrowse: FilePath, listApiAccessor: () => ListApi,
-    listSetter: Setter<ListItemProps[]>, target: typeof targets[number]): ListItemProps[]
+    listSetter: Setter<ListItemProps[]>, target: typeof Targets[number]): ListItemProps[]
 {
     const popFunction = () => {
         const element = fileBrowse.pop();
@@ -21,10 +21,10 @@ export default function getItemProps(
         resourceType: '文件夹',
         onClick: popFunction,
     };
-    const downloadFunction = (_:any , gameInfo: ListItemProps) => {
+    const downloadFunction = (_: any , gameInfo: ListItemProps) => {    // eslint-disable-line
         launchDownload(target, gameInfo.title);
     };
-    const pushFunction = async (_:any , gameInfo: ListItemProps) => {
+    const pushFunction = async (_:any , gameInfo: ListItemProps) => { // eslint-disable-line
         const gameList = [backItem];
         const newStackElement = await fileBrowse.push(gameInfo.title, listApiAccessor().getPage());
         const appendList = getItemProps(newStackElement.items,

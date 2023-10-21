@@ -6,7 +6,7 @@ import styles from './List.module.css';
 export interface ListProps {
     items: ListItemProps[];
     itemPerPage?: number;
-    onInit?: (list: ListApi) => any;
+    onInit?: (list: ListApi) => any; // eslint-disable-line @typescript-eslint/no-explicit-any
 }
 
 export interface ListApi {
@@ -96,8 +96,7 @@ const List: Component<ListProps> = (props) => {
     const handleInput = (i: string) => {
         if (parseInt(i)) {
             setInputValue(parseInt(i));
-        } else if (i === '') {
-        } else {
+        } else if (i !== '') {
             setInputValue(page() + 1);
         }
     };

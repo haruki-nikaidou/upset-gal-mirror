@@ -6,11 +6,12 @@ import Search from '../../components/Search/Search.tsx';
 import Logo from '../../components/Logo/Logo.tsx';
 import {createEffect, createSignal, Show} from 'solid-js';
 import {fetchList} from '../../utils/loadList.ts';
-import {GameItem, search} from '../../utils/search.ts';
+import {search} from '../../utils/search.ts';
 import {ListItemProps} from '../../components/List/ListItem.tsx';
 import {FilePath} from '../../utils/fileBrowse.ts';
 import getItemProps from '../../utils/listItemPropsGenerate.ts';
 import shuffle from '../../utils/shuffle.ts';
+import {GameItem} from "../../types.ts";
 
 const Pc: Component = () => {
     const [gameList, setGameList] = createSignal<ListItemProps[]>([]);

@@ -1,8 +1,5 @@
-import {targets} from './loadList.ts';
-import {GameItem} from './search.ts';
-import shuffle from './shuffle.ts';
-
-const BaseUrl = 'https://shinnku.plr.moe/mirror/api/';
+import {fetchListFromUrl} from './loadList.ts';
+import {BaseUrl, GameItem, Targets} from '../types.ts';
 
 export type FilePathStackElement = {
     items: GameItem[];
@@ -36,10 +33,10 @@ class FilePathStack {
 }
 
 export class FilePath {
-    target: typeof targets[number];
+    target: typeof Targets[number];
     stack: FilePathStack;
 
-    constructor(target: typeof targets[number], startItems: GameItem[]) {
+    constructor(target: typeof Targets[number], startItems: GameItem[]) {
         this.target = target;
         const rootElement: FilePathStackElement = {
             folderName: target,
@@ -56,15 +53,7 @@ export class FilePath {
             currentPage: 0,
             items: []
         };
-        const req = await fetch(BaseUrl + '/' + this.stack.getPath() + '/' + folder);
-        const list = shuffle(await req.json());
-        newStackElement.items = list.map((item: any) => {
-            return {
-                title: item.name,
-                size: item.size,
-                resourceType: item['@type'] as 'folder' | 'file',
-            };
-        });
+        newStackElement.items = await fetchListFromUrl(BaseUrl + '/' + this.stack.getPath() + '/' + folder);
         this.stack.push(newStackElement);
         return newStackElement;
     }

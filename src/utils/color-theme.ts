@@ -67,10 +67,11 @@ export function rgbToHsv(rgb: RgbColor): HsvColor {
     b /= 255;
 
     const max = Math.max(r, g, b), min = Math.min(r, g, b);
-    let h, s, v = max;
+    let h;
+    const v = max;
     const d = max - min;
 
-    s = max == 0 ? 0 : d / max;
+    const s = max == 0 ? 0 : d / max;
 
     if (max == min) {
         h = 0; // achromatic

@@ -8,13 +8,14 @@ import Logo from '../../components/Logo/Logo.tsx';
 import ButtonRatio from '../../components/ButtonRatio/ButtonRatio.tsx';
 import {ListItemProps} from '../../components/List/ListItem.tsx';
 import {FilePath} from '../../utils/fileBrowse.ts';
-import {fetchList, targets} from '../../utils/loadList.ts';
+import {fetchList} from '../../utils/loadList.ts';
 import getItemProps from '../../utils/listItemPropsGenerate.ts';
-import {GameItem, search} from '../../utils/search.ts';
+import {search} from '../../utils/search.ts';
 import shuffle from '../../utils/shuffle.ts';
+import {GameItem, Targets} from '../../types.ts';
 
 const Mobile: Component = () => {
-    const platformList: (typeof targets[number])[]= [
+    const platformList: (typeof Targets[number])[]= [
         'krkr',
         'apk',
         'ons',
@@ -72,7 +73,7 @@ const Mobile: Component = () => {
             gameItemLists[i] = shuffle(gameItemLists[i]);
             filePaths[i] = new FilePath(platformList[i], gameItemLists[i]);
             gameLists[i] = createSignal(
-                getItemProps(gameItemLists[i], filePaths[i]!, listAccessor, displayLists[i][1])
+                getItemProps(gameItemLists[i], filePaths[i]!, listAccessor, displayLists[i][1], platformList[i])
             );
             const displaySetter = displayLists[i][1];
             displaySetter(gameLists[i]![0]());

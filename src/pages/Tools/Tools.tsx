@@ -6,15 +6,16 @@ import List, {ListApi} from '../../components/List/List.tsx';
 import Search from '../../components/Search/Search.tsx';
 import Logo from '../../components/Logo/Logo.tsx';
 import ButtonRatio from '../../components/ButtonRatio/ButtonRatio.tsx';
-import {fetchList, targets} from '../../utils/loadList.ts';
+import {fetchList} from '../../utils/loadList.ts';
 import {ListItemProps} from '../../components/List/ListItem.tsx';
 import {FilePath} from '../../utils/fileBrowse.ts';
-import {GameItem, search} from '../../utils/search.ts';
+import {search} from '../../utils/search.ts';
 import getItemProps from '../../utils/listItemPropsGenerate.ts';
 import shuffle from '../../utils/shuffle.ts';
+import {GameItem, Targets} from '../../types.ts';
 
 const Tools: Component = () => {
-    const toolTypeList:(typeof targets[number])[] = [
+    const toolTypeList:(typeof Targets[number])[] = [
         'simulate',
         'tools'
     ];
