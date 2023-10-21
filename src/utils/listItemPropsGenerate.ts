@@ -4,7 +4,7 @@ import launchDownload from './launchDownload.ts';
 import {ListApi} from '../components/List/List.tsx';
 import {Setter} from 'solid-js';
 
-import {GameItem, Targets} from '../types.ts';
+import {GameItem, Targets} from '../types/types.ts';
 
 export default function getItemProps(
     games: GameItem[], fileBrowse: FilePath, listApiAccessor: () => ListApi,

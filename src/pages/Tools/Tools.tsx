@@ -12,7 +12,7 @@ import {FilePath} from '../../utils/fileBrowse.ts';
 import {search} from '../../utils/search.ts';
 import getItemProps from '../../utils/listItemPropsGenerate.ts';
 import shuffle from '../../utils/shuffle.ts';
-import {GameItem, Targets} from '../../types.ts';
+import {GameItem, Targets} from '../../types/types.ts';
 
 const Tools: Component = () => {
     const toolTypeList:(typeof Targets[number])[] = [
@@ -63,7 +63,7 @@ const Tools: Component = () => {
             toolItemLists[i] = shuffle(toolItemLists[i]);
             filePaths[i] = new FilePath(toolTypeList[i], toolItemLists[i]);
             gameLists[i] = createSignal(
-                getItemProps(toolItemLists[i], filePaths[i]!, listAccessor, displayLists[i][1])
+                getItemProps(toolItemLists[i], filePaths[i]!, listAccessor, displayLists[i][1], toolTypeList[i])
             );
             const displaySetter = displayLists[i][1];
             displaySetter(gameLists[i]![0]());

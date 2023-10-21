@@ -1,8 +1,6 @@
-import {Targets} from '../types.ts';
-
-const UrlBase = 'https://shinnku.plr.moe/mirror/api/';
+import {BaseUrl, Targets} from '../types/types.ts';
 
 export default function launchDownload(target: typeof Targets[number], gameName: string) {
-    const url = UrlBase + target + '/' + gameName;
+    const url = BaseUrl + target + '/' + gameName;
     window.open(url, '_blank');
 }

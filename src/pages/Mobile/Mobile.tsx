@@ -12,7 +12,7 @@ import {fetchList} from '../../utils/loadList.ts';
 import getItemProps from '../../utils/listItemPropsGenerate.ts';
 import {search} from '../../utils/search.ts';
 import shuffle from '../../utils/shuffle.ts';
-import {GameItem, Targets} from '../../types.ts';
+import {GameItem, Targets} from '../../types/types.ts';
 
 const Mobile: Component = () => {
     const platformList: (typeof Targets[number])[]= [

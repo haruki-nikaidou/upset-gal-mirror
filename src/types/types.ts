@@ -1,4 +1,4 @@
-export declare const BaseUrl: 'https://shinnku.plr.moe/mirror/api/';
+export const BaseUrl = 'https://shinnku.plr.moe/mirror/api/';
 
 export declare const Targets: [
     'win',
@@ -16,7 +16,7 @@ export type GameInfo = {
     name: string,
     size: string
 }
-declare const resourceTypes: [
+export declare const resourceTypes: [
     'folder',
     'file',
 ];
