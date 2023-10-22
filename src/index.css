@@ -7,6 +7,13 @@ html {
     height: 100%;
     width: 100%;
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+}
+
+@media screen and (min-width: 2963px) {
+    html {
+        font-size: 0.54vmax;
+    }
 }
 
 body {
