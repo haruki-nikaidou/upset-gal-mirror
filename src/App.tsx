@@ -7,10 +7,13 @@ import Home from './pages/Home/Home.tsx';
 import Pc from './pages/Pc/Pc.tsx';
 import Tools from './pages/Tools/Tools.tsx';
 import Footer from "./components/Footer/Footer";
+import FitBackground from "./components/FitBackground/FitBackground.tsx";
+import backgroundImage from "./assets/background.jpg";
 
 function App() {
     return (
         <Router>
+            <FitBackground imageUrl={backgroundImage} beforeLoadImage="linear-gradient(to right, #ffcdb9, #ffb9b9, #FFC0CB)"></FitBackground>
             <Header />
             <Routes>
                 <Route path="/" component={Home} />
