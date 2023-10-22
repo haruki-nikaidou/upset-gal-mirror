@@ -25,10 +25,12 @@
 
 @media (max-height: 900px) {
     .footer {
+        position: relative;
         bottom: 0;
         margin-top: 2.5rem;
         padding-bottom: 1rem;
         padding-top: 0.5rem;
+        overflow: visible;
         background-color: #ffd3d965;
         backdrop-filter: blur(3px);
     }
