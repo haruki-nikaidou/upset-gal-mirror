@@ -23,6 +23,10 @@
     }
 }
 
+body {
+    padding-bottom: 5rem;
+}
+
 @media (max-height: 900px) {
     .footer {
         position: relative;
@@ -33,5 +37,8 @@
         overflow: visible;
         background-color: #ffd3d965;
         backdrop-filter: blur(3px);
+    }
+    body {
+        padding-bottom: 0;
     }
 }
