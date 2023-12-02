@@ -2,5 +2,23 @@
     max-width: 60em;
     width: 100%;
     box-sizing: border-box;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5rem;
+}
+
+.content a {
+    color: #c92f50;
+}
+
+.content h4 {
+    margin-bottom: 0.5rem;
+}
+
+.content a:visited {
+    color: #c92f50;
+}
+
+.gossip p {
+    font-size: 0.8rem;
 }
