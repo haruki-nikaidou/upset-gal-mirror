@@ -35,10 +35,12 @@ const Home: Component = () => {
                 </Typography>
                 <Typography variant="p">
                     源站甚至镜像站进不去？使用垃圾VPN半天加载不出来？或者遇到了进不去Telegram？<br/>
-                    说明你被当地运营商掐网线了，推荐使用 <a href="https://congyu.moe/auth/register?code=e30dc2bc97" target="_blank">丛雨VPN / 丛雨云</a> <br/>
+                    推荐使用 <a href="https://s.plr.moe/vpn" target="_blank">丛雨VPN / 丛雨云</a> <br/>
                     柚子厨专属vpn，既有专线高速流量，延迟25ms内；<br/>
-                    又有低倍率流量让你用到爽, 性价比之神,  <br/>
-                    循环 10% off 优惠码: shinnku
+                    又有低倍率流量让你用到爽, 性价比之神
+                </Typography>
+                <Typography variant="p">
+                    镜像站福利，使用优惠码 shinnku 享九折。记住网址 https://s.plr.moe/vpn ，然后分享给朋友们吧！
                 </Typography>
                 <Typography variant="h3">
                     法律与版权

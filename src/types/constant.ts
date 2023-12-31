@@ -15,4 +15,4 @@ export declare const resourceTypes: [
     'file',
 ];
 
-export const Version = '1.1.1';
+export const Version = '1.1.2';
