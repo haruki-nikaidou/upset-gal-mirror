@@ -42,6 +42,9 @@ const Home: Component = () => {
                 <Typography variant="p">
                     镜像站福利，使用优惠码 shinnku 享九折。记住网址 https://s.plr.moe/vpn ，然后分享给朋友们吧！
                 </Typography>
+                <Typography variant="p">
+                    同样推荐<a href='https://alori.moe/app#/register?code=wa3eRyYv'>alori</a>，也是主打高性价比，全中转，二次元浓度不高但更稳定。
+                </Typography>
                 <Typography variant="h3">
                     法律与版权
                 </Typography>
